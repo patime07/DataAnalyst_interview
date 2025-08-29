@@ -1,0 +1,7 @@
+SELECT num_tweets AS tweet_bucket, COUNT(num_tweets) AS users_num
+FROM (SELECT user_id, COUNT(msg) AS num_tweets 
+FROM tweets 
+WHERE tweet_date BETWEEN '01/01/2022' AND '12/31/2022'
+GROUP BY user_id 
+) AS table_1
+GROUP BY num_tweets;
