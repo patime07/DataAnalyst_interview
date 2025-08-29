@@ -1,0 +1,10 @@
+WITH views_per_device AS(
+SELECT device_type, COUNT(device_type) AS device_views
+FROM viewership
+GROUP BY device_type)
+
+
+SELECT 
+  SUM(CASE WHEN device_type = 'laptop' THEN device_views ELSE 0 END) AS laptop_views,
+  SUM(CASE WHEN device_type IN ('phone','tablet') THEN device_views ELSE 0 END) AS mobile_views
+FROM views_per_device;
