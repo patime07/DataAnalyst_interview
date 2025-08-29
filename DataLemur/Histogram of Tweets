@@ -5,3 +5,14 @@ WHERE tweet_date BETWEEN '01/01/2022' AND '12/31/2022'
 GROUP BY user_id 
 ) AS table_1
 GROUP BY num_tweets;
+
+-- using CTE 
+WITH table_1 AS (
+SELECT user_id, COUNT(tweet_id) AS num_tweets 
+FROM tweets 
+WHERE tweet_date BETWEEN '01/01/2022' AND '12/31/2022'
+GROUP BY user_id)
+
+SELECT num_tweets AS tweet_bucket, COUNT(num_tweets) AS users_num
+FROM table_1
+GROUP BY num_tweets;
