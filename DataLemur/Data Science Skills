@@ -1,0 +1,16 @@
+WITH table_1 AS (
+SELECT candidate_id
+FROM candidates
+WHERE skill IN ('Python','Tableau','PostgreSQL'))
+
+SELECT candidate_id
+FROM table_1
+GROUP BY candidate_id
+HAVING COUNT(candidate_id) = 3;
+
+-- without CTE
+SELECT candidate_id
+FROM candidates
+WHERE skill IN ('Python','Tableau','PostgreSQL')
+GROUP BY candidate_id
+HAVING COUNT(candidate_id) = 3;
