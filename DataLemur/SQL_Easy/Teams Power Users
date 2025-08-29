@@ -1,0 +1,7 @@
+SELECT sender_id, message_count
+FROM (
+SELECT sender_id, COUNT(sender_id) AS message_count, ROW_NUMBER() OVER (ORDER BY COUNT(sender_id) DESC) AS ranking
+FROM messages
+WHERE sent_date BETWEEN '08/01/2022' AND '08/31/2022'
+GROUP BY sender_id) AS table_1
+WHERE ranking <= 2;
