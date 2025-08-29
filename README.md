@@ -1,1 +1,1 @@
-# DataAnalyst Interview Preparation
+# Junior Data Analyst Interview Preparation
