@@ -1,0 +1,7 @@
+SELECT user_id, (last_post - first_post) AS days_between
+FROM (
+SELECT user_id, MIN(post_date) AS first_post, MAX(post_date) AS last_post
+FROM posts
+GROUP BY user_id
+) AS table_1
+
