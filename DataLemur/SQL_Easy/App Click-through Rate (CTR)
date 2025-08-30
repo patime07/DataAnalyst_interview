@@ -1,0 +1,17 @@
+with impressions_per_app as(
+select app_id, count(app_id) as n_impressions
+from events
+where event_type = 'impression' and extract(year from timestamp) ='2022'
+group by app_id
+),
+clicks_per_app as(
+select app_id, count(app_id) as n_clicks
+from events
+where event_type = 'click' and extract(year from timestamp) ='2022'
+group by app_id
+)
+
+select impressions_per_app.app_id, round(100.0*n_clicks/n_impressions,2) as ctr
+from impressions_per_app
+join clicks_per_app on impressions_per_app.app_id = clicks_per_app.app_id;
+
