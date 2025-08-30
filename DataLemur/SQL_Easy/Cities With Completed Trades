@@ -8,3 +8,5 @@ group by city)
 select city, total_orders
 from orders_per_city
 where ranking <= 3;
+
+-- inner join will work too
