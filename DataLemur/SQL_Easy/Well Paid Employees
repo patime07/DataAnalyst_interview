@@ -1,0 +1,9 @@
+with managers as(
+select employee_id as manager_id, name as manager_name, salary as manager_salary
+from employee
+where manager_id is null)
+
+select employee_id, name as employee_name
+from employee
+join managers on managers.manager_id = employee.manager_id
+where salary>manager_salary;
