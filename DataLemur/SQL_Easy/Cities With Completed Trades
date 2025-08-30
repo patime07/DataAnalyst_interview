@@ -1,0 +1,10 @@
+with orders_per_city as(
+select city, count(city) as total_orders, row_number() over(order by count(city) DESC) as ranking
+from trades 
+left join users on trades.user_id = users.user_id
+where status = 'Completed'
+group by city) 
+
+select city, total_orders
+from orders_per_city
+where ranking <= 3;
