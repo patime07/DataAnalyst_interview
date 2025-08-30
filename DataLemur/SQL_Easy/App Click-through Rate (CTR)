@@ -1,3 +1,4 @@
+--using JOINS
 with impressions_per_app as(
 select app_id, count(app_id) as n_impressions
 from events
@@ -15,8 +16,7 @@ select impressions_per_app.app_id, round(100.0*n_clicks/n_impressions,2) as ctr
 from impressions_per_app
 join clicks_per_app on impressions_per_app.app_id = clicks_per_app.app_id;
 
---use CASE
-
+--using CASE
 with n_clicks_impressions as(
 select app_id, sum(case when event_type = 'click' then 1 else 0 end) as n_clicks,
 sum(case when event_type = 'impression' then 1 else 0 end) as n_impressions
@@ -26,6 +26,16 @@ group by app_id)
 
 select app_id, round(100.0*n_clicks/n_impressions ,2) as ctr 
 from n_clicks_impressions
+
+--using COUNT
+select app_id, round(100.0 *
+  count(case when event_type = 'click' then 1 else NULL end)/
+  count(case when event_type = 'impression' then 1 else NULL end),2)
+from events
+where extract(year from timestamp) = '2022'
+group by app_id
+
+
 
 
 
