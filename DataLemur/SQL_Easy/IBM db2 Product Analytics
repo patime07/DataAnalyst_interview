@@ -1,0 +1,12 @@
+with query_per_employee as
+(SELECT employees.employee_id, count(employees.employee_id) as query_employee
+FROM employees left join queries
+on employees.employee_id = queries.employee_id 
+where query_starttime >= '07/01/2023' AND query_starttime <= '09/30/2023'
+group by employees.employee_id
+order by employee_id ASC)
+
+select query_employee as unique_queries, count(query_employee) as employee_count
+from query_per_employee
+group by query_employee
+order by unique_queries
