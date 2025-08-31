@@ -1,0 +1,5 @@
+SELECT user_id	
+FROM emails join texts 
+on emails.email_id = texts.email_id
+where extract(day from emails.signup_date) + 1 = extract(day from texts.action_date) 
+  and texts.signup_action = 'Confirmed';
