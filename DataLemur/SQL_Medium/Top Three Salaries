@@ -1,0 +1,10 @@
+with salary_ranked_by_dep as (
+select name, salary, employee.department_id, department_name, dense_rank() over(partition by department_name order by salary desc) as rank
+from employee left join department
+  on employee.department_id = department.department_id
+)
+
+select department_name, name, salary
+from salary_ranked_by_dep
+where rank <=3
+order by department_name asc, salary desc, name asc;
