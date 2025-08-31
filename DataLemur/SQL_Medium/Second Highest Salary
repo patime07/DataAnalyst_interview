@@ -5,3 +5,17 @@ from employee)
 select salary as second_highest_salary
 from ranked_salaries
 where ranking = 2;
+
+
+-- we can take the first highest and store it in a CTE then select it in a new query to use in the 'WHERE' clause
+with highest_salary_cte as (
+select max (salary) as highest_salary
+from employee
+)
+
+select max(salary) as second_highest_salary
+from employee
+where salary < (
+select highest_salary
+from highest_salary_cte)
+
