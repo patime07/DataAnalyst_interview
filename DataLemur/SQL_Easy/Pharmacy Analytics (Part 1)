@@ -1,0 +1,14 @@
+with total_per_drug as 
+(select drug, (total_sales - cogs) as total_profit, row_number() over(order by (total_sales - cogs) desc) as ranking
+from pharmacy_sales
+order by total_profit desc)
+
+select drug, total_profit
+from total_per_drug
+where  ranking <=3
+
+--using LIMIT is simpler
+select drug, (total_sales - cogs) as total_profit
+from pharmacy_sales
+order by total_profit desc
+limit 3
