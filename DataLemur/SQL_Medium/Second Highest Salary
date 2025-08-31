@@ -1,0 +1,7 @@
+with ranked_salaries as
+(select employee_id, salary, row_number() over(order by salary desc) as ranking
+from employee)
+
+select salary as second_highest_salary
+from ranked_salaries
+where ranking = 2;
